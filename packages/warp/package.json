@@ -1,0 +1,42 @@
+{
+  "name": "@varld/warp",
+  "version": "0.1.0-beta",
+  "description": "Minimalist framework for building APIs in TypeScript.",
+  "main": "dist/index.js",
+  "repository": "https://github.com/varld/warp",
+  "author": "Tobias Herber <tobias@herber.space>",
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "format": "prettier --write 'src/**/*.ts' --write 'tests/**/*.ts'",
+    "test": "jest"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "class-transformer": "^0.2.3",
+    "class-transformer-validator": "^0.8.0",
+    "class-validator": "^0.12.2",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "reflect-metadata": "^0.1.13",
+    "typedi": "^0.8.0"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.0",
+    "@types/cookie-parser": "^1.4.2",
+    "@types/cors": "^2.8.6",
+    "@types/express": "^4.17.6",
+    "@types/jest": "^25.2.3",
+    "@types/node": "^14.0.9",
+    "@types/supertest": "^2.0.9",
+    "hbs": "^4.1.1",
+    "jest": "^26.0.1",
+    "prettier": "^2.0.5",
+    "rimraf": "^3.0.2",
+    "supertest": "^4.0.2",
+    "ts-jest": "^26.1.0",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.3"
+  }
+}
