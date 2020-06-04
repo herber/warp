@@ -689,7 +689,7 @@ test('serves basic api', async () => {
 
 Warp was mostly inspired by [Nest.js](https://nestjs.com/), [Tachijs](https://github.com/BoostIO/tachijs) and [Express](https://expressjs.com/). All of those libraries are amazing and I greatly appreciate their maintainers! Warp would not exist without those libraries.
 
-### Can't I just use Next.js?
+### Can't I just use Nest.js?
 
 Yeah! Nest.js is great, but it includes a lot of bloat that most people don't need or don't even know about, like _Interceptors_, or built in support for microservice. Warp aims be much simple, while offering the features most APIs need. 
 
