@@ -1,10 +1,26 @@
 <p align="center">
-  <img src="https://i.imgur.com/OLt55Xe.png" width="500px">
+  <img src="https://i.imgur.com/OLt55Xe.png" width="100%">
 </p>
 
 <h3 align="center">
-  <b>Minimalist framework for building APIs in TypeScript.</b>
+  <b>Minimalist framework for building APIs in TypeScript.</b> 
 </h3>
+
+<p align="center">
+  <a href="https://github.com/varld/warp/blob/master/readme.md#getting-started">Getting Started</a>
+  <span>&nbsp;&nbsp;&nbsp;</span>
+  <a href="https://github.com/varld/warp/blob/master/readme.md#examples">Examples</a>
+  <span>&nbsp;&nbsp;&nbsp;</span>
+  <a href="https://github.com/varld/warp/blob/master/readme.md#authentication">Authentication</a>
+  <span>&nbsp;&nbsp;&nbsp;</span>
+  <a href="https://github.com/varld/warp/blob/master/readme.md#accessing-the-request-body">Validation</a>
+  <span>&nbsp;&nbsp;&nbsp;</span>
+  <a href="https://github.com/varld/warp/blob/master/readme.md#dependency-injection">Dependency Injection</a>
+  <span>&nbsp;&nbsp;&nbsp;</span>
+  <a href="https://github.com/varld/warp/blob/master/readme.md#testing">Testing</a>
+</p>
+
+<br />
 
 ## Features
 
@@ -663,9 +679,9 @@ test('serves basic api', async () => {
 
 ## Examples
 
-- [Basic Warp app](https://github.com/varld/warp/tree/master/examples/simple)
+- [A basic Warp app](https://github.com/varld/warp/tree/master/examples/simple)
 - [Warp, TypeORM and authentication](https://github.com/varld/warp/tree/master/examples/with-typeorm-auth)
-- [Warp tests](https://github.com/varld/warp/tree/master/packages/warp/tests)
+- [Warp's test suite](https://github.com/varld/warp/tree/master/packages/warp/tests)
 
 ## Questions and Answers
 
@@ -675,7 +691,7 @@ Warp was mostly inspired by [Nest.js](https://nestjs.com/), [Tachijs](https://gi
 
 ### Can't I just use Next.js?
 
-Yeah! Nest.js is great, but it includes a lot of bloat that most people don't need or don't even know about like _Interceptors_, or built in support for microservice. Warp aims be much simple, while offering the features that most APIs need. 
+Yeah! Nest.js is great, but it includes a lot of bloat that most people don't need or don't even know about, like _Interceptors_, or built in support for microservice. Warp aims be much simple, while offering the features most APIs need. 
 
 If you need a bunch of abstractions and enterprise-level features, then Nest.js is great. If you want to build an API (big or small) but don't need all of those features, then Warp is a great choice.
 
