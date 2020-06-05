@@ -1,0 +1,25 @@
+{
+  "name": "create-warp-app",
+  "version": "0.1.0-beta",
+  "description": "Create a new Warp project.",
+  "main": "dist/index.js",
+  "repository": "https://github.com/varld/warp",
+  "author": "Tobias Herber <tobias@herber.space>",
+  "license": "MIT",
+  "bin": "./dist/index.js",
+  "scripts": {
+    "build": "rimraf dist && tsc"
+  },
+  "dependencies": {
+    "@types/execa": "^2.0.0",
+    "@types/fs-extra": "^9.0.1",
+    "execa": "^4.0.2",
+    "fs-extra": "^9.0.1",
+    "is-yarn-installed": "^1.0.0",
+    "mri": "^1.1.5",
+    "sade": "^1.7.3"
+  },
+  "devDependencies": {
+    "@types/sade": "^1.7.0"
+  }
+}
