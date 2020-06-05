@@ -1,0 +1,20 @@
+{
+  "name": "with-typeorm-auth",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "dependencies": {
+    "class-validator": "^0.12.2",
+    "sqlite3": "^4.2.0",
+    "ts-node": "^8.10.2",
+    "typeorm": "^0.2.25",
+    "typescript": "^3.9.3",
+    "@varld/warp": "latest"
+  },
+  "scripts": {
+    "start": "ts-node ./src/index.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.10"
+  }
+}
