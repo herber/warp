@@ -68,3 +68,5 @@ typings/
 
 # Macos
 .DS_Store
+
+*.db
