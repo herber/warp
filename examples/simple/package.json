@@ -1,0 +1,22 @@
+{
+  "name": "warp-example-simple",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "repository": "https://github.com/varld/warp",
+  "license": "MIT",
+  "dependencies": {
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.3",
+    "@varld/warp": "latest"
+  },
+  "scripts": {
+    "start": "ts-node ./src/index.ts",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.2.3",
+    "@types/node": "^14.0.10",
+    "jest": "^26.0.1",
+    "ts-jest": "^26.1.0"
+  }
+}
