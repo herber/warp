@@ -652,6 +652,47 @@ class MyController {
 }
 ```
 
+### HTTP Errors
+
+Warp automatically catches errors thrown in middleware, param functions and http handlers. If the exception is unknown, Warp will return an internal server error. However, you can use Warp's builtin HTTP-Exceptions to specify which error should be returned to the client. Warp has an exception for all standard http errors.
+
+```typescript
+import { GoneException } from '@varld/warp';
+
+@Controller('/')
+class MyController {
+  @Get('/')
+  gone() {
+    throw new GoneException();
+  }
+}
+```
+
+The response sent to the client looks like this:
+
+```json
+{
+  "status": "410",
+  "message": "Gone"
+}
+```
+
+The message can be customized using the exceptions first parameter: `throw new GoneException('It is gone!')`.
+
+#### Custom HTTP Errors
+
+For some usecases you might need custom HTTP-Exceptions. You can create those by extending the the `HttpException` class.
+
+```typescript
+import { HttpException } from '@varld/warp';
+
+export class CustomException extends HttpException {
+  constructor() {
+    super('A custom error', 418);
+  }
+}
+```
+
 ### Testing
 
 Testing a warp app is very simple, since warp apps are basically just Express apps. The simples way to test an api built with warp is using [supertest](https://github.com/visionmedia/supertest). Supertest has also been used to test the warp library itself, take a look at [the tests](https://github.com/varld/warp/tree/master/packages/warp/tests) to learn more.
