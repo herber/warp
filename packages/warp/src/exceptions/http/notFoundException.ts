@@ -1,4 +1,4 @@
-import { HttpException } from './HttpException';
+import { HttpException } from './httpException';
 import { HttpStatus } from '../../const';
 
 export class NotFoundException extends HttpException {
