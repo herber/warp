@@ -17,7 +17,7 @@ jobs:
           yarn
           yarn test
 
-  publish-npm:
+  publish-warp-npm:
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -27,9 +27,26 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
       - run: yarn
-      - run: yarn ci:bootstrap
-      - run: yarn ci:build
-      - run: git fetch --tags
-      - run: yarn ci:publish
+      - run: |
+          cd packages/warp
+          yarn build
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          
+  publish-create-warp-app-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+      - run: yarn
+      - run: |
+          cd packages/create-warp-app
+          yarn build
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
