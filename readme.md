@@ -175,17 +175,17 @@ Global middleware is executed on every request. You can optionally specify if it
 ```typescript
 // Default behavior
 let app = warp({
-  controllers: [...],
+  controllers: [ /*...*/ ],
   middleware: [
     aMiddlewareFunction,
     anotherOne,
-    ...
+    // ...
   ]
 });
 
 // Specify when the middleware should be executed
 let app = warp({
-  controllers: [...],
+  controllers: [ /*...*/ ],
   middleware: [
     {
       // Will be executed before request handlers
@@ -197,7 +197,7 @@ let app = warp({
       execution: 'after',
       middleware: cleanupMiddleware,
     }
-    ...
+    // ...
   ]
 });
 ```
@@ -210,10 +210,10 @@ Controller-based middleware will be executed before every handler method within 
 @Controller('/', [
   aMiddlewareFunction,
   anotherOne,
-  ...
+  // ...
 ])
 class MyController {
-  ...
+  // ...
 }
 ```
 
@@ -224,16 +224,16 @@ Handler-based middleware is specific to selected request handlers. Handler-based
 ```typescript
 @Get('/:name', [
   aMiddlewareFunction,
-  ...
+  // ...
 ])
 @Middleware(anotherMiddlewareFunction)
 @Middleware([
   aMiddlewareFunctionInAnArray,
   oneMore,
-  ...
+  // ...
 ])
 handler() {
-  ...
+  // ...
 }
 ```
 
@@ -342,13 +342,13 @@ class MyController {
   // Get all query parameters as an object
   @Get('/all')
   handler(@Query() everything: any) {
-    ...
+    // ...
   }
 
   // Get a single query parameter called name
   @Get('/one')
   handler(@Query('name') name: string) {
-    ...
+    // ...
   }
 }
 ```
@@ -363,13 +363,13 @@ class MyController {
   // Get all headers as an object
   @Get('/all')
   handler(@Header() everything: any) {
-    ...
+    // ...
   }
 
   // Get the "Content-Type" header
   @Get('/one')
   handler(@Header('Content-Type') contentType: string) {
-    ...
+    // ...
   }
 }
 ```
@@ -384,13 +384,13 @@ class MyController {
   // Get all cookies as an object
   @Get('/all')
   handler(@Cookie() everything: any) {
-    ...
+    // ...
   }
 
   // Get a single cookie called token
   @Get('/one')
   handler(@Cookie('token') token: string) {
-    ...
+    // ...
   }
 }
 ```
@@ -428,13 +428,13 @@ class MyController {
   // Get all params as an object
   @Get('/users/:userId/task/:taskId')
   handler(@Param() everything: any) {
-    ...
+    // ...
   }
 
   // Get a single param called userId
   @Get('/users/:userId')
   handler(@Param('userId') userId: string) {
-    ...
+    // ...
   }
 }
 ```
@@ -448,7 +448,7 @@ In some cases you might want to access Express's native request object. You can 
 class MyController {
   @Get('/')
   handler(@Req() req: Request) {
-    ...
+    // ...
   }
 }
 ```
@@ -462,7 +462,7 @@ You might need to access Express's native response object. You can do this using
 class MyController {
   @Get('/')
   handler(@Res() res: Response) {
-    ...
+    // ...
   }
 }
 ```
@@ -472,7 +472,7 @@ class MyController {
 In addition to the built in parameter decorators, Warp also offers the ability to create custom parameters.
 
 ```typescript
-import { BaseParam, ... } from '@varld/warp';
+import { BaseParam, /*...*/ } from '@varld/warp';
 
 let CustomParam = () => {
   BaseParam((req, res) => req.ip);
