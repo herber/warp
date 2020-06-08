@@ -28,6 +28,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: yarn
       - run: |
+          cp ./readme.md ./packages/warp/readme.md
           cd packages/warp
           yarn build
           npm publish
