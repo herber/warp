@@ -1,0 +1,34 @@
+name: Publish to npm
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: |
+          cd packages/warp
+          yarn
+          yarn test
+
+  publish-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+      - run: yarn global add lerna
+      - run: lerna bootstrap
+      - run: lerna run build
+      - run: lerna publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
