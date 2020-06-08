@@ -1,6 +1,7 @@
 {
   "name": "@varld/warp",
   "version": "0.1.0-beta",
+  "private": false,
   "description": "Minimalist framework for building APIs in TypeScript.",
   "main": "dist/index.js",
   "repository": "https://github.com/varld/warp",
