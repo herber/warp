@@ -5,9 +5,9 @@
   "repository": "https://github.com/varld/warp",
   "license": "MIT",
   "dependencies": {
+    "@varld/warp": "latest",
     "ts-node": "^8.10.2",
-    "typescript": "^3.9.3",
-    "@varld/warp": "latest"
+    "typescript": "^3.9.3"
   },
   "scripts": {
     "start": "ts-node ./src/index.ts",
@@ -17,6 +17,7 @@
     "@types/jest": "^25.2.3",
     "@types/node": "^14.0.10",
     "jest": "^26.0.1",
-    "ts-jest": "^26.1.0"
+    "ts-jest": "^26.1.0",
+    "supertest": "^4.0.2"
   }
 }

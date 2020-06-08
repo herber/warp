@@ -5,7 +5,8 @@ let createPackage = (dir: string, tests: boolean, name: string) => {
   let testDeps = `,
     "@types/jest": "^25.2.3",
     "jest": "^26.0.1",
-    "ts-jest": "^26.1.0"`;
+    "ts-jest": "^26.1.0",
+    "supertest": "^4.0.2"`;
 
   let testScripts = `,
     "test": "jest"`;
