@@ -5,6 +5,11 @@
   "repository": "https://github.com/varld/warp",
   "author": "Tobias Herber <tobias@herber.space>",
   "license": "MIT",
+  "scripts": {
+    "ci:bootstrap": "lerna bootstrap",
+    "ci:build": "lerna run build",
+    "ci:publish": "lerna publish"
+  },
   "devDependencies": {
     "lerna": "^3.15.0"
   },
