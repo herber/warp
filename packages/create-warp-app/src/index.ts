@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import sade from 'sade';
 import fs from 'fs-extra';
 import { join, resolve, basename } from 'path';
