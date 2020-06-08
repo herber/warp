@@ -8,7 +8,7 @@
   "scripts": {
     "ci:bootstrap": "lerna bootstrap",
     "ci:build": "lerna run build",
-    "ci:publish": "lerna publish --no-push --yes"
+    "ci:publish": "lerna publish --skip-git --yes"
   },
   "devDependencies": {
     "lerna": "^3.15.0"
