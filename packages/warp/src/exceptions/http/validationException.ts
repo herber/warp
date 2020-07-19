@@ -4,9 +4,15 @@ import { ValidationError } from 'class-validator';
 
 export class ValidationException extends HttpException {
   constructor(
-    public readonly message: string = 'Invalid Request Data',
+    public readonly message: string = 'invalid_request_data',
     public readonly validationErrors: ValidationError[]
   ) {
-    super(message, HttpStatus.NOT_ACCEPTABLE);
+    super(
+      {
+        code: message,
+        validationErrors
+      },
+      HttpStatus.NOT_ACCEPTABLE
+    );
   }
 }

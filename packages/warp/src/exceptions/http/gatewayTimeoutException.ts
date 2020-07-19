@@ -1,8 +1,9 @@
 import { HttpException } from './httpException';
 import { HttpStatus } from '../../const';
+import { ErrorResponse } from '../../interfaces/errorResponse';
 
 export class GatewayTimeoutException extends HttpException {
-  constructor(public readonly message: string = 'Gateway Timeout') {
-    super(message, HttpStatus.GATEWAY_TIMEOUT);
+  constructor(public readonly code: string | ErrorResponse = 'gateway_timeout') {
+    super(code, HttpStatus.GATEWAY_TIMEOUT);
   }
 }

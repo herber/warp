@@ -1,5 +1,5 @@
 import request from 'supertest';
-import warp, { Controller, Get, Query, ImATeapotException, Middleware } from '../../src';
+import warp, { Controller, Get, Query, ImATeapotException, Middleware, HttpException } from '../../src';
 
 describe('exceptions', () => {
   test('custom exception message', async () => {
@@ -22,7 +22,41 @@ describe('exceptions', () => {
     expect(response.text).toEqual(
       JSON.stringify({
         status: 418,
-        message: 'Custom text'
+        code: 'Custom text'
+      })
+    );
+  });
+
+  test('exception with custom fields', async () => {
+    @Controller('/')
+    class IndexController {
+      @Get('/')
+      exception() {
+        throw new HttpException(
+          {
+            code: 'custom',
+            message: 'A description',
+            extra: true
+          },
+          400
+        );
+      }
+    }
+
+    let app = warp({
+      controllers: [IndexController]
+    });
+
+    let response = await request(app).get('/');
+
+    expect(response.status).toEqual(400);
+    expect(response.get('Content-Type')).toMatch(/json/);
+    expect(response.text).toEqual(
+      JSON.stringify({
+        status: 400,
+        code: 'custom',
+        message: 'A description',
+        extra: true
       })
     );
   });
@@ -55,7 +89,7 @@ describe('exceptions', () => {
     expect(responseErr.text).toEqual(
       JSON.stringify({
         status: 418,
-        message: 'I am a Teapot'
+        code: 'i_am_a_teapot'
       })
     );
   });
@@ -83,7 +117,7 @@ describe('exceptions', () => {
     expect(response.text).toEqual(
       JSON.stringify({
         status: 418,
-        message: 'I am a Teapot'
+        code: 'i_am_a_teapot'
       })
     );
   });
@@ -104,11 +138,12 @@ describe('exceptions', () => {
     let response = await request(app).get('/');
 
     expect(response.status).toEqual(500);
+    console.log(response.get('Content-Type'));
     expect(response.get('Content-Type')).toMatch(/json/);
     expect(response.text).toEqual(
       JSON.stringify({
         status: 500,
-        message: 'Internal Server Error'
+        code: 'internal_server_error'
       })
     );
   });

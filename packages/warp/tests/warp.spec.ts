@@ -107,7 +107,7 @@ describe('warp', () => {
     expect(response.text).toEqual(
       JSON.stringify({
         status: 404,
-        message: 'Not Found'
+        code: 'not_found'
       })
     );
   });
@@ -131,7 +131,7 @@ describe('warp', () => {
     expect(response.text).toEqual(
       JSON.stringify({
         status: 401,
-        message: 'Unauthorized'
+        code: 'unauthorized'
       })
     );
   });

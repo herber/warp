@@ -42,7 +42,7 @@ describe('guards', () => {
     expect(forbiddenResponse.text).toEqual(
       JSON.stringify({
         status: 403,
-        message: 'Forbidden'
+        code: 'forbidden'
       })
     );
   });
@@ -93,7 +93,7 @@ describe('guards', () => {
     expect(response.text).toEqual(
       JSON.stringify({
         status: 401,
-        message: 'Unauthorized'
+        code: 'unauthorized'
       })
     );
   });

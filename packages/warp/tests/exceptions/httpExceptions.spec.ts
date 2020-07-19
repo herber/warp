@@ -44,7 +44,7 @@ describe('http exceptions', () => {
     expect(response.text).toEqual(
       JSON.stringify({
         status: 502,
-        message: 'Bad Gateway'
+        code: 'bad_gateway'
       })
     );
   });
@@ -69,7 +69,7 @@ describe('http exceptions', () => {
     expect(response.text).toEqual(
       JSON.stringify({
         status: 400,
-        message: 'Bad Request'
+        code: 'bad_request'
       })
     );
   });
@@ -94,7 +94,7 @@ describe('http exceptions', () => {
     expect(response.text).toEqual(
       JSON.stringify({
         status: 409,
-        message: 'Conflict'
+        code: 'conflict'
       })
     );
   });
@@ -119,7 +119,7 @@ describe('http exceptions', () => {
     expect(response.text).toEqual(
       JSON.stringify({
         status: 403,
-        message: 'Forbidden'
+        code: 'forbidden'
       })
     );
   });
@@ -144,7 +144,7 @@ describe('http exceptions', () => {
     expect(response.text).toEqual(
       JSON.stringify({
         status: 504,
-        message: 'Gateway Timeout'
+        code: 'gateway_timeout'
       })
     );
   });
@@ -169,7 +169,7 @@ describe('http exceptions', () => {
     expect(response.text).toEqual(
       JSON.stringify({
         status: 410,
-        message: 'Gone'
+        code: 'gone'
       })
     );
   });
@@ -194,7 +194,7 @@ describe('http exceptions', () => {
     expect(response.text).toEqual(
       JSON.stringify({
         status: 418,
-        message: 'I am a Teapot'
+        code: 'i_am_a_teapot'
       })
     );
   });
@@ -219,7 +219,7 @@ describe('http exceptions', () => {
     expect(response.text).toEqual(
       JSON.stringify({
         status: 500,
-        message: 'Internal Server Error'
+        code: 'internal_server_error'
       })
     );
   });
@@ -244,7 +244,7 @@ describe('http exceptions', () => {
     expect(response.text).toEqual(
       JSON.stringify({
         status: 405,
-        message: 'Method Not Allowed'
+        code: 'method_not_allowed'
       })
     );
   });
@@ -269,7 +269,7 @@ describe('http exceptions', () => {
     expect(response.text).toEqual(
       JSON.stringify({
         status: 406,
-        message: 'Not Acceptable'
+        code: 'not_acceptable'
       })
     );
   });
@@ -294,7 +294,7 @@ describe('http exceptions', () => {
     expect(response.text).toEqual(
       JSON.stringify({
         status: 404,
-        message: 'Not Found'
+        code: 'not_found'
       })
     );
   });
@@ -319,7 +319,7 @@ describe('http exceptions', () => {
     expect(response.text).toEqual(
       JSON.stringify({
         status: 501,
-        message: 'Not Implemented'
+        code: 'not_implemented'
       })
     );
   });
@@ -344,7 +344,7 @@ describe('http exceptions', () => {
     expect(response.text).toEqual(
       JSON.stringify({
         status: 413,
-        message: 'Payload Too Large'
+        code: 'payload_too_large'
       })
     );
   });
@@ -369,7 +369,7 @@ describe('http exceptions', () => {
     expect(response.text).toEqual(
       JSON.stringify({
         status: 408,
-        message: 'Request Timeout'
+        code: 'request_timeout'
       })
     );
   });
@@ -394,7 +394,7 @@ describe('http exceptions', () => {
     expect(response.text).toEqual(
       JSON.stringify({
         status: 503,
-        message: 'Service Unavailable'
+        code: 'service_unavailable'
       })
     );
   });
@@ -419,7 +419,7 @@ describe('http exceptions', () => {
     expect(response.text).toEqual(
       JSON.stringify({
         status: 401,
-        message: 'Unauthorized'
+        code: 'unauthorized'
       })
     );
   });
@@ -444,7 +444,7 @@ describe('http exceptions', () => {
     expect(response.text).toEqual(
       JSON.stringify({
         status: 422,
-        message: 'Unprocessable Entity'
+        code: 'unprocessable_entity'
       })
     );
   });
@@ -469,12 +469,12 @@ describe('http exceptions', () => {
     expect(response.text).toEqual(
       JSON.stringify({
         status: 415,
-        message: 'Unsupported Media Type'
+        code: 'unsupported_media_type'
       })
     );
   });
 
-  test('service unavailable exception', async () => {
+  test('custom exception', async () => {
     @Controller('/')
     class IndexController {
       @Get('/')
@@ -494,7 +494,7 @@ describe('http exceptions', () => {
     expect(response.text).toEqual(
       JSON.stringify({
         status: 202,
-        message: 'Something happened'
+        code: 'Something happened'
       })
     );
   });

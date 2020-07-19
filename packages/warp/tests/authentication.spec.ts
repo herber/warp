@@ -65,6 +65,7 @@ describe('authentication', () => {
     expect(responseDeny.text).toEqual(
       JSON.stringify({
         status: 406,
+        code: 'missing_token',
         message: 'No authentication token specified'
       })
     );
@@ -124,6 +125,7 @@ describe('authentication', () => {
     expect(responseDeny.text).toEqual(
       JSON.stringify({
         status: 406,
+        code: 'missing_token',
         message: 'No authentication token specified'
       })
     );
@@ -151,6 +153,7 @@ describe('authentication', () => {
     expect(response.text).toEqual(
       JSON.stringify({
         status: 406,
+        code: 'invalid_scheme',
         message: '"token" is not a valid authentication scheme.'
       })
     );
@@ -186,6 +189,7 @@ describe('authentication', () => {
     expect(responseDeny.text).toEqual(
       JSON.stringify({
         status: 406,
+        code: 'missing_token',
         message: 'No authentication token specified'
       })
     );
@@ -213,7 +217,7 @@ describe('authentication', () => {
     expect(responseDeny.text).toEqual(
       JSON.stringify({
         status: 401,
-        message: 'Unauthorized'
+        code: 'unauthorized'
       })
     );
   });

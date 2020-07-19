@@ -21,7 +21,10 @@ export let getAuthToken = (opts: GetAuthTokenOpts = {}) => (req: Request): strin
       let token = parts.slice(1).join(' ');
 
       if (prefix.toLowerCase() != headerScheme) {
-        throw new NotAcceptableException(`"${prefix}" is not a valid authentication scheme.`);
+        throw new NotAcceptableException({
+          message: `"${prefix}" is not a valid authentication scheme.`,
+          code: 'invalid_scheme'
+        });
       }
 
       return token;

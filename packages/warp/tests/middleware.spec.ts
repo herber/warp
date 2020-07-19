@@ -267,7 +267,7 @@ describe('middleware', () => {
     expect(response.text).toEqual(
       JSON.stringify({
         status: 418,
-        message: 'I am a Teapot'
+        code: 'i_am_a_teapot'
       })
     );
   });
@@ -303,7 +303,7 @@ describe('middleware', () => {
     expect(forbiddenResponse.text).toEqual(
       JSON.stringify({
         status: 403,
-        message: 'Forbidden'
+        code: 'forbidden'
       })
     );
   });

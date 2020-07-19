@@ -1,11 +1,12 @@
-import express from 'express';
+import express, { NextFunction, Response } from 'express';
 import { MetadataKeys } from '../../const';
 import { InternalWarpOpts } from '../../interfaces/internalWarpOpts';
+import { Request } from '../../interfaces';
 
 export type HandlerParamSelector<T> = (
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction,
+  req: Request,
+  res: Response,
+  next: NextFunction,
   meta: HandlerParamMeta<T>,
   opts: InternalWarpOpts
 ) => T;

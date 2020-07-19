@@ -61,7 +61,7 @@ describe('body param', () => {
     });
     expect(responseDeny.status).toEqual(406);
     expect(responseDeny.body.status).toEqual(406);
-    expect(responseDeny.body.message).toEqual('Invalid Request Data');
+    expect(responseDeny.body.code).toEqual('invalid_request_data');
     expect(responseDeny.body.validationErrors).toBeDefined();
   });
 });

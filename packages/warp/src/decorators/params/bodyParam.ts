@@ -11,7 +11,7 @@ export let Body = () => {
           })
         : req.body;
     } catch (err) {
-      throw new ValidationException('Invalid Request Data', err);
+      throw new ValidationException('invalid_request_data', err);
     }
   });
 };
