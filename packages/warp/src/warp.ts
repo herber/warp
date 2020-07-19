@@ -1,5 +1,6 @@
 import { Express, Router, Response, NextFunction, RequestHandler } from 'express';
 import { Container } from 'typedi';
+import winston from 'winston';
 import { getControllerMetadata, ControllerMetadata } from './decorators/controller';
 import { getHandlerMetadataList, HandlerMetadata } from './decorators/handler';
 import { WarpException } from './exceptions/warpException';
@@ -18,6 +19,7 @@ export class Warp {
 
   constructor(
     private readonly app: Express,
+    private readonly logger: winston.Logger,
     private readonly controllers: any[],
     private readonly middleware: GlobalMiddleware[],
     private readonly options: InternalWarpOpts = {
@@ -27,7 +29,7 @@ export class Warp {
   ) {}
 
   public build() {
-    let { app, middleware, controllers, authenticator, options } = this;
+    let { app, middleware, controllers, authenticator, options, logger } = this;
 
     this.authTokenExtractor = getAuthToken(options.authentication);
     this.authenticatorMiddleware = this.prepareAuthenticator().bind(this);
@@ -37,6 +39,7 @@ export class Warp {
         options,
         authenticator
       };
+      req.logger = logger;
 
       next();
     });
@@ -128,7 +131,12 @@ export class Warp {
         }
 
         if (!token) {
-          return next(new NotAcceptableException('No authentication token specified'));
+          return next(
+            new NotAcceptableException({
+              message: 'No authentication token specified',
+              code: 'missing_token'
+            })
+          );
         }
 
         req.context.authToken = token;
