@@ -652,6 +652,41 @@ let app = warp({
 });
 ```
 
+### Logging
+
+Warp has built-in support for [Winston](https://github.com/winstonjs/winston). You can use the `@Logger` decorator to access the logger in a handler-function
+
+```typescript
+import winston from 'winston';
+
+@Controller('/')
+class MyController {
+  @Get('/')
+  handler(@Logger() logger: winston.Logger) {
+    logger.info('Something happened');
+  }
+}
+```
+
+By default warp will automatically create a basic Winston logger, however you can pass a custom Winston instance to customize the logger.
+
+```typescript
+import winston from 'winston';
+
+let logger = winston.createLogger({
+  level: 'info',
+  transports: [
+    new winston.transports.Console(),
+    new winston.transports.File({ filename: 'log' })
+  ]
+});
+
+let app = warp({
+  controllers: [...],
+  logger
+});
+```
+
 ### Dependency Injection
 
 Warp has support for dependency injection in controllers using [typedi](https://github.com/typestack/typedi). Injectable classes must be marked using the `@Service()` decorator.
@@ -773,7 +808,7 @@ Sure! Warp is built on Express. Express is battle tested and very unopinionated,
 
 ### Is Warp safe to use?
 
-Honestly, Warp is a really simple library. All it does is glueing a few other libraries together. All of those libraries are battle tested and used by thousands (sometimes even millions) of developers. In addition to that Warp is very well tested (99% coverage). So it is safe to say, that you can safely use Warp in production. However, if you do encounter any problems or inconveniences feel free to open an issue or pr on Warp's GitHub.
+Honestly, Warp is a really simple library. All it does is glueing a few other libraries together. All of those libraries are battle tested and used by thousands (sometimes even millions) of developers. In addition to that Warp is very well tested (99% coverage). So it is safe to say that you can use Warp in production. However, if you do encounter any problems or inconveniences feel free to open an issue or poll request on Warp's GitHub.
 
 ## License
 
