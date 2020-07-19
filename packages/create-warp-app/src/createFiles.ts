@@ -17,12 +17,16 @@ let createPackage = (dir: string, tests: boolean, name: string) => {
   "main": "src/index.ts",
   "license": "MIT",
   "dependencies": {
+    "nodemon": "^2.0.4",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.3",
     "@varld/warp": "latest"
   },
   "scripts": {
-    "start": "ts-node ./src/index.ts"${tests ? testScripts : ''}
+    "dev": "ts-node ./src/index.ts",
+    "dev:watch": "nodemon -e ts -w ./src -x npm run dev",
+    "build": "tsc",
+    "start": "node ./dist/index.js"${tests ? testScripts : ''}
   },
   "devDependencies": {
     "@types/node": "^14.0.10"${tests ? testDeps : ''}
@@ -131,7 +135,7 @@ export class GreetingService {
 }
 `;
 
- return fs.writeFile(join(dir, 'src/services/greetingService.ts'), data);
+  return fs.writeFile(join(dir, 'src/services/greetingService.ts'), data);
 };
 
 let createTest = (dir: string) => {
@@ -179,7 +183,7 @@ test('greets cowboys by name', async () => {
 });
 `;
 
- return fs.writeFile(join(dir, 'tests/greeting.spec.ts'), data);
+  return fs.writeFile(join(dir, 'tests/greeting.spec.ts'), data);
 };
 
 export let createFiles = async (dir: string, tests: boolean, name: string) => {
