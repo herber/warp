@@ -1,6 +1,6 @@
 {
   "name": "create-warp-app",
-  "version": "0.1.2-beta",
+  "version": "0.2.0",
   "description": "Create a new Warp project.",
   "main": "dist/index.js",
   "repository": "https://github.com/varld/warp",
