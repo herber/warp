@@ -24,19 +24,19 @@
 
 ## Features
 
-- 🔋 __Batteries includes:__ Cors, dependency injection and body parsing are already set up.
-- 🚀 __Written in Typescript:__ No need to worry about inconsistent types.
-- 🤷‍♂️ __Unopinionated:__ We don't force you to do anything.
-- 🏭 __Built on Express:__ Warp is compatible with all existing Express packages.
-- ✨ __Support for `async`/`await`:__ Warp helps you escape the callback hell.
-- 🔥 __Easy to get started with:__ One file with a few lines of code is all you need.
-- 👋 __Built in authentication:__ Warp has build in support for token authentication.
+- 🔋 **Batteries includes:** Cors, dependency injection and body parsing are already set up.
+- 🚀 **Written in Typescript:** No need to worry about inconsistent types.
+- 🤷‍♂️ **Unopinionated:** We don't force you to do anything.
+- 🏭 **Built on Express:** Warp is compatible with all existing Express packages.
+- ✨ **Support for `async`/`await`:** Warp helps you escape the callback hell.
+- 🔥 **Easy to get started with:** One file with a few lines of code is all you need.
+- 👋 **Built in authentication:** Warp has build in support for token authentication.
 
 ## Why
 
 About a year ago I fell in love with Nest.js, however after building a couple of bigger projects with it I noticed, that it forces me to do things in counterintuitive ways while offering features that I hardly ever used. On the other hand, Express is great but really barebones. You have to set up body parsing, authentication and routing for every project.
 
-__Warp__ aims to be a combination of the great API that Nest.js offers while maintaining the simplicity of Express. Warp is a clever combination of a few standard packages, which together offer controller based routing, authentication, dependency injection, validation and reduce code duplication.
+**Warp** aims to be a combination of the great API that Nest.js offers while maintaining the simplicity of Express. Warp is a clever combination of a few standard packages, which together offer controller based routing, authentication, dependency injection, validation and reduce code duplication.
 
 ## Getting Started
 
@@ -45,7 +45,11 @@ __Warp__ aims to be a combination of the great API that Nest.js offers while mai
 Warp CLI creates a simple TypeScript project with a very basic Warp API and test.
 
 ```bash
+# Create warp project in current directory
 npx create-warp-app
+
+# Create warp project in (./my-api)
+npx create-warp-app ./my-api
 ```
 
 ### Custom Setup
@@ -56,10 +60,10 @@ You can easily set up your own warp project. This guide assumes that you already
 
 ```bash
 # Using npm
-npm install @varld/warp 
+npm install @varld/warp
 
 # Using yarn
-yarn add @varld/warp 
+yarn add @varld/warp
 ```
 
 #### Setting up TypeScript
@@ -85,7 +89,7 @@ import warp, { Controller, Get, Param } from '@varld/warp';
 class GreetingController {
   @Get('/:name')
   greet(@Param('name') name: string) {
-    return `Hello ${ name }`;
+    return `Hello ${name}`;
   }
 }
 
@@ -98,7 +102,7 @@ app.listen(3000);
 
 That's it! 🎉 Go ahead and visit [`http://localhost:3000/your-name`](http://localhost:3000/your-name) in a browser.
 
-Now let's take a look at what the code above does exactly. 
+Now let's take a look at what the code above does exactly.
 
 1. On the first line, we import `warp` and a few decorators, which we are using later.
 2. Nest, we create a controller-class. All controllers must have the `@Controller('/...')` decorator, with the base-path of the controller as the first argument.
@@ -129,7 +133,7 @@ While Warp does not force you do adhere to a specific file structure, there is o
 ```
 
 In the root of the project, there is an `index.ts`-file, which create a Warp instance and sets everything up.
-The `controllers` directory houses all controllers. Each controller should have its own file named accordingly. 
+The `controllers` directory houses all controllers. Each controller should have its own file named accordingly.
 The `services` directory contains all services. Each file should contain just one service.
 
 If you are using authentication, you could extract the authenticator into its own file.
@@ -142,25 +146,39 @@ Warp has decorators for all popular HTTP-Methods. They all basically work the sa
 @Controller('/')
 class MyController {
   @Get('/') // Listens to GET requests
-  getSomething() { /*...*/ }
+  getSomething() {
+    /*...*/
+  }
 
   @Post('/') // Listens to POST requests
-  createSomething() { /*...*/ }
+  createSomething() {
+    /*...*/
+  }
 
   @Put('/') // Listens to PUT requests
-  overrideSomething() { /*...*/ }
+  overrideSomething() {
+    /*...*/
+  }
 
   @Patch('/') // Listens to PATCH requests
-  updateSomething() { /*...*/ }
+  updateSomething() {
+    /*...*/
+  }
 
   @Delete('/') // Listens to DELETE requests
-  deleteSomething() { /*...*/ }
+  deleteSomething() {
+    /*...*/
+  }
 
   @Head('/') // Listens to HEAD requests
-  headRequest() { /*...*/ }
+  headRequest() {
+    /*...*/
+  }
 
   @Options('/') // Listens to OPTIONS requests
-  optionsRequest() { /*...*/ }
+  optionsRequest() {
+    /*...*/
+  }
 }
 ```
 
@@ -175,27 +193,31 @@ Global middleware is executed on every request. You can optionally specify if it
 ```typescript
 // Default behavior
 let app = warp({
-  controllers: [ /*...*/ ],
+  controllers: [
+    /*...*/
+  ],
   middleware: [
     aMiddlewareFunction,
-    anotherOne,
+    anotherOne
     // ...
   ]
 });
 
 // Specify when the middleware should be executed
 let app = warp({
-  controllers: [ /*...*/ ],
+  controllers: [
+    /*...*/
+  ],
   middleware: [
     {
       // Will be executed before request handlers
       execution: 'before',
-      middleware: setupMiddleware,
+      middleware: setupMiddleware
     },
     {
       // Will be executed after request handlers
       execution: 'after',
-      middleware: cleanupMiddleware,
+      middleware: cleanupMiddleware
     }
     // ...
   ]
@@ -209,7 +231,7 @@ Controller-based middleware will be executed before every handler method within 
 ```typescript
 @Controller('/', [
   aMiddlewareFunction,
-  anotherOne,
+  anotherOne
   // ...
 ])
 class MyController {
@@ -401,10 +423,7 @@ Warp also has decorators for setting and clearing cookies.
 @Controller('/')
 class MyController {
   @Get('/')
-  handler(
-    @SetCookie() setCookie: CookieSetter,
-    @ClearCookie() clearCookie: CookieClearer,
-  ) {
+  handler(@SetCookie() setCookie: CookieSetter, @ClearCookie() clearCookie: CookieClearer) {
     setCookie('name', 'value', {
       /* options */
     });
@@ -472,7 +491,7 @@ class MyController {
 In addition to the built in parameter decorators, Warp also offers the ability to create custom parameters.
 
 ```typescript
-import { BaseParam, /*...*/ } from '@varld/warp';
+import { BaseParam /*...*/ } from '@varld/warp';
 
 let CustomParam = () => {
   BaseParam((req, res) => req.ip);
@@ -482,7 +501,7 @@ let CustomParam = () => {
 class MyController {
   @Get('/')
   handler(@CustomParam() ip: string) {
-    return `Your IP-Address is: ${ ip }`;
+    return `Your IP-Address is: ${ip}`;
   }
 }
 ```
@@ -493,14 +512,16 @@ Warp includes native support for cors. You can enable cors when creating a new W
 
 ```typescript
 let app = warp({
-  controllers: [/*...*/],
+  controllers: [
+    /*...*/
+  ],
   cors: true
 });
 
 // ...
 ```
 
-`cors` is optional and can be a `boolean` or a [cors-options-object](https://github.com/expressjs/cors#configuration-options). By default the `cors` value is `false` and hance cors is disabled. 
+`cors` is optional and can be a `boolean` or a [cors-options-object](https://github.com/expressjs/cors#configuration-options). By default the `cors` value is `false` and hance cors is disabled.
 
 ### Accessing the Request Body
 
@@ -522,23 +543,23 @@ Request body validation is achieved using [class validator](https://github.com/t
 
 ```typescript
 class MyBody {
-    @Length(5, 25)
-    title: string;
+  @Length(5, 25)
+  title: string;
 
-    @Contains('hello')
-    text: string;
+  @Contains('hello')
+  text: string;
 
-    @IsInt()
-    @Min(0)
-    @Max(5)
-    rating: number;
+  @IsInt()
+  @Min(0)
+  @Max(5)
+  rating: number;
 }
 
 @Controller('/')
 class MyController {
   @Post('/')
   handler(@Body() body: MyBody) {
-    // The body has already been validated 
+    // The body has already been validated
     // and can be used now.
   }
 }
@@ -560,7 +581,9 @@ If no user is returned, warp will not execute any handlers and send an unauthori
 
 ```typescript
 let app = warp({
-  controllers: [/*...*/],
+  controllers: [
+    /*...*/
+  ],
   authenticator: async (token: string, req: Request) => {
     // fetch user by token from database
     let user = await db.getUserByToken(token);
@@ -574,7 +597,7 @@ let app = warp({
 
 Warp supports two types of authentication: global authentication, which protects every route of the warp instance and handler based authentication, using the `@Authenticated()` decorator.
 
-__Global authentication:__
+**Global authentication:**
 
 ```typescript
 let app = warp({
@@ -585,7 +608,7 @@ let app = warp({
 });
 ```
 
-__Handler based authentication:__
+**Handler based authentication:**
 
 ```typescript
 @Controller('/')
@@ -673,11 +696,11 @@ The response sent to the client looks like this:
 ```json
 {
   "status": "410",
-  "message": "Gone"
+  "code": "gone"
 }
 ```
 
-The message can be customized using the exceptions first parameter: `throw new GoneException('It is gone!')`.
+The code can be customized using the exceptions first parameter: `throw new GoneException('It is gone!')`.
 
 #### Custom HTTP Errors
 
@@ -688,10 +711,18 @@ import { HttpException } from '@varld/warp';
 
 export class CustomException extends HttpException {
   constructor() {
-    super('A custom error', 418);
+    super(
+      {
+        code: 'A custom error',
+        additionalField: 'something'
+      },
+      418
+    );
   }
 }
 ```
+
+As you can see, the super function expects two parameters, the first one can be a `string` or an object which must contain the `code` property, but can also contain additional properties. The second parameters is an HTTP-status-code.
 
 ### Testing
 
@@ -732,7 +763,7 @@ Warp was mostly inspired by [Nest.js](https://nestjs.com/), [Tachijs](https://gi
 
 ### Can't I just use Nest.js?
 
-Yeah! Nest.js is great, but it includes a lot of bloat that most people don't need or don't even know about, like _Interceptors_, or built in support for microservice. Warp aims be much simple, while offering the features most APIs need. 
+Yeah! Nest.js is great, but it includes a lot of bloat that most people don't need or don't even know about, like _Interceptors_, or built in support for microservice. Warp aims be much simple, while offering the features most APIs need.
 
 If you need a bunch of abstractions and enterprise-level features, then Nest.js is great. If you want to build an API (big or small) but don't need all of those features, then Warp is a great choice.
 
