@@ -348,7 +348,7 @@ app.listen(3000);
 
 The simple response behaves similar to just returning the value, however using the simple response you can optionally add a status code and custom headers.
 
-`new RedirectResponse(data, [status, headers])`
+`new SimpleResponse(data, [status, headers])`
 
 ### Accessing request data
 
