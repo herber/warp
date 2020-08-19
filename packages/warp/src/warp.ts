@@ -1,6 +1,5 @@
 import { Express, Router, Response, NextFunction, RequestHandler } from 'express';
 import { Container } from 'typedi';
-import winston from 'winston';
 import { getControllerMetadata, ControllerMetadata } from './decorators/controller';
 import { getHandlerMetadataList, HandlerMetadata } from './decorators/handler';
 import { WarpException } from './exceptions/warpException';
@@ -12,6 +11,7 @@ import { errorHandler } from './utils/errorHandler';
 import { NotFoundException, NotAcceptableException, UnauthorizedException } from './exceptions';
 import { getAuthToken } from './utils/getAuthToken';
 import { Request } from './interfaces/request';
+import { Logger } from './interfaces';
 
 export class Warp {
   private authTokenExtractor: (req: Request) => string | undefined;
@@ -19,7 +19,7 @@ export class Warp {
 
   constructor(
     private readonly app: Express,
-    private readonly logger: winston.Logger,
+    private readonly logger: Logger,
     private readonly controllers: any[],
     private readonly middleware: GlobalMiddleware[],
     private readonly options: InternalWarpOpts = {

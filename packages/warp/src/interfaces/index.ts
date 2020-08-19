@@ -4,3 +4,4 @@ export * from './internalWarpOpts';
 export * from './request';
 export * from './warpContext';
 export * from './errorResponse';
+export * from './logger';

@@ -1,14 +1,13 @@
-import winston from 'winston';
-
 export let createLogger = () => {
-  let logger = winston.createLogger({
-    level: 'info',
-    transports: [
-      new winston.transports.Console({
-        format: winston.format.combine(winston.format.colorize(), winston.format.simple())
-      })
-    ]
-  });
+  return (err: any) => {
+    if ((typeof err.data == 'string' || typeof err.data?.code == 'string') && typeof err.status == 'number') {
+      console.error(`${err.status} - ${err.data?.code || err.data || 'Error in HTTP Handler'}`);
+    } else {
+      console.error(err.message || 'Error in HTTP Handler');
+    }
 
-  return logger;
+    if (err?.stack) {
+      console.error(err.stack);
+    }
+  };
 };
