@@ -12,4 +12,3 @@ export * from './params/queryParam';
 export * from './params/reqParam';
 export * from './params/resParam';
 export * from './params/userParam';
-export * from './params/loggerParam';

@@ -1,6 +1,6 @@
 {
   "name": "@varld/warp",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "private": false,
   "description": "Minimalist framework for building APIs in TypeScript.",
   "main": "dist/index.js",
@@ -21,8 +21,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "reflect-metadata": "^0.1.13",
-    "typedi": "^0.8.0",
-    "winston": "^3.3.3"
+    "typedi": "^0.8.0"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.0",
