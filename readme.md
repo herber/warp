@@ -652,38 +652,16 @@ let app = warp({
 });
 ```
 
-### Logging
+### Logging and Error Handling
 
-Warp has built-in support for [Winston](https://github.com/winstonjs/winston). You can use the `@Logger` decorator to access the logger in a handler-function
-
-```typescript
-import winston from 'winston';
-
-@Controller('/')
-class MyController {
-  @Get('/')
-  handler(@Logger() logger: winston.Logger) {
-    logger.info('Something happened');
-  }
-}
-```
-
-By default warp will automatically create a basic Winston logger, however you can pass a custom Winston instance to customize the logger.
+You can override Warp's default error logger by providing a `logger` function when creating a Wrap instance. The function receives the error as its first parameter.
 
 ```typescript
-import winston from 'winston';
-
-let logger = winston.createLogger({
-  level: 'info',
-  transports: [
-    new winston.transports.Console(),
-    new winston.transports.File({ filename: 'log' })
-  ]
-});
-
 let app = warp({
   controllers: [...],
-  logger
+  logger: (error: Error | HTTPException) => {
+    // do something with the error
+  }
 });
 ```
 
