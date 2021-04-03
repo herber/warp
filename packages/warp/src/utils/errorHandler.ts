@@ -2,7 +2,9 @@ import { Response, NextFunction } from 'express';
 import { HttpStatus } from '../const';
 import { Request } from '../interfaces';
 
-export let errorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
+export type ErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => unknown;
+
+export let errorHandler: ErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
   let loggerFunction = (err: any) => {
     if (req?.logger && typeof req.logger == 'function') {
       req.logger(err);
