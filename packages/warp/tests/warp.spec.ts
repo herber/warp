@@ -22,6 +22,39 @@ describe('warp', () => {
     expect(response.text).toEqual('hello');
   });
 
+  test('uses base path', async () => {
+    @Controller('/')
+    class IndexController {
+      @Get('/')
+      sendHello() {
+        return 'hello';
+      }
+
+      @Get('/xyz')
+      sendHello2() {
+        return 'hello2';
+      }
+    }
+
+    let app = warp({
+      controllers: [IndexController],
+      basePath: '/abc'
+    });
+
+    let response1 = await request(app).get('/abc');
+
+    expect(response1.status).toEqual(200);
+    expect(response1.text).toEqual('hello');
+
+    let response2 = await request(app).get('/abc/xyz');
+
+    expect(response2.status).toEqual(200);
+    expect(response2.text).toEqual('hello2');
+
+    let response3 = await request(app).get('/');
+    expect(response3.status).toEqual(404);
+  });
+
   test('accepts existing express app', async () => {
     let expressApp = express();
     expressApp.get('/', (req, res) => res.send('hello from express'));

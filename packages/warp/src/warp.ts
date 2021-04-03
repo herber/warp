@@ -1,4 +1,4 @@
-import { Express, Router, Response, NextFunction, RequestHandler } from 'express';
+import { Express, Router, Response, NextFunction, RequestHandler, Request as ExpressRequest } from 'express';
 import { Container } from 'typedi';
 import { getControllerMetadata, ControllerMetadata } from './decorators/controller';
 import { getHandlerMetadataList, HandlerMetadata } from './decorators/handler';
@@ -7,26 +7,47 @@ import { BaseResponse } from './responses/baseResponse';
 import { getHandlerParamMetaList } from './decorators/params/baseParam';
 import { InternalWarpOpts } from './interfaces/internalWarpOpts';
 import { GlobalMiddleware } from './interfaces/globalMiddleware';
-import { errorHandler } from './utils/errorHandler';
+import { ErrorHandler } from './utils/errorHandler';
 import { NotFoundException, NotAcceptableException, UnauthorizedException } from './exceptions';
 import { getAuthToken } from './utils/getAuthToken';
 import { Request } from './interfaces/request';
 import { Logger } from './interfaces';
+import { joinPaths } from './utils/joinPaths';
 
 export class Warp {
   private authTokenExtractor: (req: Request) => string | undefined;
   private authenticatorMiddleware: (req: Request, res: Response, next: NextFunction) => void;
 
-  constructor(
-    private readonly app: Express,
-    private readonly logger: Logger,
-    private readonly controllers: any[],
-    private readonly middleware: GlobalMiddleware[],
-    private readonly options: InternalWarpOpts = {
-      validation: true
-    },
-    private readonly authenticator: (token: string, req: Request) => any
-  ) {}
+  private readonly app: Express;
+  private readonly logger: Logger;
+  private readonly controllers: any[];
+  private readonly middleware: GlobalMiddleware[];
+  private readonly options: InternalWarpOpts = {
+    validation: true
+  };
+  private readonly authenticator: (token: string, req: Request) => any;
+  private readonly errorHandler: ErrorHandler;
+  private readonly basePath: string;
+
+  constructor(opts: {
+    app: Express;
+    logger: Logger;
+    controllers: any[];
+    middleware: GlobalMiddleware[];
+    options: InternalWarpOpts;
+    authenticator?: (token: string, req: Request) => any;
+    errorHandler: ErrorHandler;
+    basePath?: string;
+  }) {
+    this.app = opts.app;
+    this.logger = opts.logger;
+    this.controllers = opts.controllers;
+    this.middleware = opts.middleware;
+    this.options = opts.options;
+    this.authenticator = opts.authenticator;
+    this.errorHandler = opts.errorHandler;
+    this.basePath = opts.basePath;
+  }
 
   public build() {
     let { app, middleware, controllers, authenticator, options, logger } = this;
@@ -34,7 +55,7 @@ export class Warp {
     this.authTokenExtractor = getAuthToken(options.authentication);
     this.authenticatorMiddleware = this.prepareAuthenticator().bind(this);
 
-    app.use((req: Request, res, next) => {
+    app.use(((req: Request, res: Response, next: NextFunction) => {
       req.context = {
         options,
         authenticator
@@ -42,7 +63,7 @@ export class Warp {
       req.logger = logger;
 
       next();
-    });
+    }) as any);
 
     for (let mw of middleware) {
       if (mw.execution == 'before') app.use(mw.middleware);
@@ -61,10 +82,10 @@ export class Warp {
 
       handlers.map(handlerMeta => {
         let handler = this.makeRequestHandler(Controller, handlerMeta);
-        this.bindHandler(router, controllerMetadata, handlerMeta, handler);
+        this.bindHandler(router, controllerMetadata, handlerMeta, handler as any);
       });
 
-      app.use(path, router);
+      app.use(joinPaths(path, this.basePath), router);
     });
 
     for (let mw of middleware) {
@@ -75,7 +96,7 @@ export class Warp {
       next(new NotFoundException());
     });
 
-    app.use(errorHandler);
+    app.use(this.errorHandler as any);
 
     return app;
   }
@@ -110,7 +131,7 @@ export class Warp {
   }
 
   private prepareMiddleware(middleware: RequestHandler[]) {
-    return middleware.map(middleware => (req: Request, res: Response, next: NextFunction) => {
+    return middleware.map(middleware => (req: ExpressRequest, res: Response, next: NextFunction) => {
       try {
         middleware(req, res, next);
       } catch (error) {
