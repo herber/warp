@@ -5,6 +5,7 @@ export interface GetAuthTokenOpts {
   header?: boolean | string;
   query?: boolean | string;
   headerScheme?: string;
+  cookie?: string;
 }
 
 export let getAuthToken = (opts: GetAuthTokenOpts = {}) => (req: Request): string | undefined => {
@@ -36,5 +37,10 @@ export let getAuthToken = (opts: GetAuthTokenOpts = {}) => (req: Request): strin
     let query = req.query ? req.query[queryName] : undefined;
 
     return (Array.isArray(query) ? query[0] : query) as string;
+  }
+
+  if (opts.cookie) {
+    let cookie = req.cookies ? req.cookies[opts.cookie] : undefined;
+    return (Array.isArray(cookie) ? cookie[0] : cookie) as string;
   }
 };

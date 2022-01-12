@@ -10,7 +10,7 @@ export let createWarp = (opts: CreateWarpOpts) => {
   let logger = opts.logger;
 
   if (!app) {
-    app = createExpress({ cors: opts.cors });
+    app = createExpress({ cors: opts.cors, cookies: opts.cookies, bodyParser: opts.bodyParser });
   }
 
   if (!logger) {
