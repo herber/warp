@@ -33,14 +33,17 @@ export let getAuthToken = (opts: GetAuthTokenOpts = {}) => (req: Request): strin
   }
 
   if (opts.query !== false) {
-    let queryName = (opts.query !== true ? opts.query : undefined) || 'access_token';
+    let queryName = typeof opts.query == 'string' ? opts.query : 'access_token';
     let query = req.query ? req.query[queryName] : undefined;
-
-    return (Array.isArray(query) ? query[0] : query) as string;
+    if (query) {
+      return (Array.isArray(query) ? query[0] : query) as string;
+    }
   }
 
   if (opts.cookie) {
     let cookie = req.cookies ? req.cookies[opts.cookie] : undefined;
-    return (Array.isArray(cookie) ? cookie[0] : cookie) as string;
+    if (cookie) {
+      return (Array.isArray(cookie) ? cookie[0] : cookie) as string;
+    }
   }
 };
